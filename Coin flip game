@@ -22,6 +22,8 @@ def CoinFlip():
     else:
         return False
 
+#correct answer is: A U (not b).
+
 def main():
     c = 0
     for i in range(1000):
@@ -29,8 +31,6 @@ def main():
         if boolean is True:
             c += 1
     print(c)
-
-#correct answer is: A U (not b).
 
 
 if __name__ == '__main__':
