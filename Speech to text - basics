@@ -1,0 +1,57 @@
+Within the complex algorithem of translating speech to text, here will focus on identifing the closest word that was intended by compraing to a giving dictionary.
+more precisly we will be exmining the most optimal way of that sort of identification.
+
+# comparing two strings letter by letter, something in the likes of mergeSort() 
+def greedy_insufficient(s1, s2):  # O(n*m)
+    string = ""
+    last_j = 0
+    j = 0
+    for i in range(len(s1)):
+        j = last_j
+        while j < len(s2):
+            if s1[i] == s2[j]:
+                string += s1[i]
+                j += 1
+                last_j = j
+                break
+            j += 1
+    return string
+
+#better implemintation to the alg' above
+def greedy_with_help(s1, s2):  # O(n+m) + O(min(n,m))
+    dict = {}
+    string = ""
+    for index in range(len(s2)):
+        if s2[index] not in dict:
+            dict[s2[index]] = 1
+        else:
+            dict[s2[index]] += 1
+
+    j = 0
+    last_j = 0
+    for i in range(len(s1)):
+        if dict[s1[i]] > 0:
+            j = last_j
+            while j < len(s2):
+                if s1[i] == s2[j]:
+                    string += s1[i]
+                    dict[s2[j]] -= 1
+                    j += 1
+                    last_j = j
+                    break
+                dict[s2[j]] -= 1
+                j += 1
+    return string
+
+#
+
+
+def main():
+    print(greedy_insufficient("bdcaba", "abcbdab"))
+    print(greedy_insufficient("abcbdab", "bdcaba"))
+    print(greedy_with_help("bdcaba", "abcbdab"))
+    # print(greedy_with_help("abcbdab", "bdcaba"))
+
+
+if __name__ == '__main__':
+    main()
