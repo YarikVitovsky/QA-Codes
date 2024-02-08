@@ -1,0 +1,31 @@
+Calculating and proving the odds of two people having the same birthday out of a group of 30.
+
+import random
+
+def find_match():
+    dict = {}
+    i = 0
+    for i in range(30):
+        dict[i] = random.randint(1,365)
+    # print(dict)
+    for person1 in dict:
+        for person2 in dict:
+            if dict[person1] == dict[person2] and person2 != person1:
+                return True
+                # print("match:" + str(person1) + " " + str(person2) + " birthday: " + str(dict[person1]))
+
+
+def main():
+    arr = []
+    # find_match()
+    for j in range(100):
+        counter = 0
+        for i in range(100):
+            if find_match() == True:
+                counter += 1
+        arr.append(counter)
+    print(arr)
+    print(sum(arr)/len(arr))
+
+if __name__ == '__main__':
+    main()
