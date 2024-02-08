@@ -1,0 +1,61 @@
+https://en.wikipedia.org/wiki/Monty_Hall_problem
+In short: a prize is hidden behind 1 of 3 doors and after a player chooses 1 of those door monthy-hall reveals 1 empty door.
+          should the player switch or stay on his current guess? and what are the odds of winning after the reveal.
+The solution below shows correctness of the right assumption.
+
+import random
+
+def find_door_index(door,arr):
+    for i in range(len(arr)):
+        if arr[i] == door:
+            return i
+
+
+def prize_guesser(): #שיפור לפה יהיה לעהוד עם אינדקסים ידניים מאשר לעבוד עם ()pop
+    door_arr = [1,2,3]
+    door_prize = random.randint(1,3)
+    door_arr.pop(door_prize - 1)
+    door_guess = random.randint(1,3)
+    # door_prize = 1
+    # door_arr.pop(door_prize - 1)
+    # door_guess = 1
+    if door_guess in door_arr:
+        index = find_door_index(door_guess,door_arr)
+        door_arr.pop(index)
+    monthy_door = door_arr.pop(-1)
+    if len(door_arr) == 0:
+        door_guess = door_prize
+        return True
+    else:
+        door_guess = door_arr[0]
+        return False
+
+#ANSWER: the player should switch because the odds of winning are 2/3.
+
+
+def main():
+    arr = []
+    for j in range(1000):
+        counter = 0
+        # runs = int(input("enter number of tries: "))
+        runs = 100
+        for i in range(runs):
+            bool = prize_guesser()
+            if bool == True:
+                counter += 1
+        print(str(counter) + ' out of ' + str(runs) + ' were correct')
+
+        arr.append(counter)
+
+    counter = 0
+    for i in range(len(arr)):
+        counter += arr[i]
+
+    print(counter/len(arr))
+
+
+
+if __name__ == '__main__':
+    main()
+
+
