@@ -1,0 +1,37 @@
+alice and bob flip a coin each in seperated rooms.
+alice has to guess correctly bob's result and bob does the same fo alice, without any contact. 
+if alice guesses wrong she dies... same goes for bob.
+our objective is to come up with a method that insures the survival of at least one of them.
+the code below shows 100% survival for at least one player
+
+import random
+
+def CoinFlip():
+    posib = [(0,0),(0,1),(1,0),(1,1)]
+    index = random.randint(0,3)
+    a,b = posib[index]
+    alice_guess = 0
+    bob_guess = 0
+    if a == 0:
+        alice_guess = 1
+    else:
+        alice_guess = 0
+    bob_guess = b
+    if bob_guess == a or alice_guess == b:
+        return True
+    else:
+        return False
+
+def main():
+    c = 0
+    for i in range(1000):
+        boolean = CoinFlip()
+        if boolean is True:
+            c += 1
+    print(c)
+
+#correct answer is: A U (not b).
+
+
+if __name__ == '__main__':
+    main()
